@@ -1,0 +1,62 @@
+.card__wrapper {
+  height:max-content;
+  width: 35rem;
+  border-radius: 16px;
+  box-shadow: -0px 0px 20px 6px rgba(0, 0, 0, 0.6);
+  background-color: var(--gray-800);
+  transition: 0.4s;
+}
+.card__wrapper:hover {
+  transform: scale(1.05);
+}
+
+.card__image--tall {
+  height: 30rem;
+}
+.card__headings{
+height:5rem;
+display: flex;
+}
+#addtocart{
+  margin-bottom:2rem;
+}
+.liked:hover {
+  transition: 0.4s;
+  animation-name: liked;
+  animation-duration: 0.4s;
+  animation-iteration-count: 2;
+}
+.category {
+  margin-bottom: 15px;
+}
+.list__wrapper {
+  border: 0px solid var(--gray-400);
+}
+@keyframes liked {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.card__wrapper--horizontal {
+  background-color: var(--main-black);
+  width: 50rem;
+  border-radius: 16px;
+  box-shadow: -0px 0px 20px 6px rgba(0, 0, 0, 0.4);
+}
+.card__image--horizontal {
+  height: 20rem;
+  width: 20rem;
+}
+.card__footer--horizontal {
+  border: none;
+}
