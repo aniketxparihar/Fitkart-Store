@@ -1,0 +1,110 @@
+
+@import url("../../CSS/card.css");
+@import url("../../CSS/font.css");
+@import url("../../CSS/nav.css");
+/*Elements*/
+html {
+  width: 100%;
+  font-size: 8px;
+  font-family: Philosophy, "Noto Sans";
+}
+body {
+  height: 100vh;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+main {
+  margin-top:10vh;
+  height: 90vh;
+  
+}
+#main__container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  
+}
+#main__container::-webkit-scrollbar {
+  display: none;
+}
+
+::placeholder {
+  color: var(--gray-400);
+  opacity: 1;
+  border-left: 4px;
+}
+
+/*Main Grid first */
+#address__wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: auto;
+  align-items: center;
+  border-radius: 25px;
+  padding: 2rem;
+  padding-left: auto;
+  padding-right: auto;
+  gap: 4rem;
+}
+#address__wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+
+@media only  screen and (max-width: 1000px) {
+ header {
+  min-height: max-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10rem;
+  
+}
+.headings{
+  margin-top:10rem;
+}
+.link{
+  display: none;
+}
+.hamburger{
+  display: block;
+}
+
+}
+.product__container{
+    width:80rem;
+}
+.product__image{
+    border-radius:8px;
+}
+.address__container{
+    padding:2rem;
+    background-color: var(--gray-600);
+    border-radius:8px;
+    margin-top:4rem;
+    height: max-content;
+}
+.address__line__one,.address__line__two{
+    margin-left:1rem;
+}
+button{
+    height:6rem;
+}
+@media only  screen and (max-width: 600px) {
+
+.product__container{
+    min-width:80%;
+}
+}

@@ -12,6 +12,9 @@ import CartBill from "../../components/CartBill/CartBill";
 const Cart = () => {
   const { authToken } = useAuth();
   const { cartItems, setCartItems } = useCart();
+  
+  
+  
   useEffect(() => {
     (async () => {
       const response = await axios.get("/api/user/cart", {
@@ -31,6 +34,7 @@ const Cart = () => {
     totalPrice += Number(current.actual_price) * Number(current.qty);
     return totalPrice;
   }, 0);
+
   const cartDiscount = cartItems.reduce((totalDiscount, current) => {
     totalDiscount +=
       Number(current.actual_price - current.price) * Number(current.qty);
@@ -38,10 +42,12 @@ const Cart = () => {
   }, 0);
   const [coupon, setCoupon] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
+ 
   const [finalPrice, setFinalPrice] = useState(cartPrice - cartDiscount + 250);
   useEffect(() => {
     setFinalPrice(cartPrice - cartDiscount + 250);
   }, [cartPrice]);
+
 
   return (
     <div className="cart__main">

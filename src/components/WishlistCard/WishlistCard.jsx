@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { useWishlist } from "../../Context/wishlist-context";
 import { useAuth } from "../../Context/auth-Context";
 import getDiscount from "../Discount/Discount";
@@ -8,6 +8,8 @@ import axios from "axios";
 const WishlistCard = (product) => {
   const { authToken } = useAuth();
   const { wishlistItems, setWishlistItems } = useWishlist();
+  const [adding, setAdding] = useState("Add to cart");
+
   const removeFromWishlist = async (product) => {
     const response = await axios.delete(`/api/user/wishlist/${product._id}`, {
       headers: {
@@ -28,9 +30,9 @@ const WishlistCard = (product) => {
         },
       }
     );
+    setAdding("Add to cart")
     removeFromWishlist(product);
   };
-  console.log("Hello", product.product);
   return (
     <div
       key={product.product._id}
@@ -77,10 +79,10 @@ const WishlistCard = (product) => {
       <div id="addtocart" className="card__links p-4 align-center flex">
         <button
           className="button p-4 txt-2xl width-full txt-bold bg-main-black border--primary txt--primary b-1 border-solid  rounded-xl flex justify-center align-center"
-          onClick={() => addToCart(product.product)}
+          onClick={() => {setAdding("Adding to cart...");addToCart(product.product)}}
         >
           <i className="button__icon material-icons">shopping_cart</i>
-          Add to Cart
+          {adding}
         </button>
       </div>
     </div>

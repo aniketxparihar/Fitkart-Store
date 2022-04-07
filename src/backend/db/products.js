@@ -22,7 +22,7 @@ export const products = [
     _id: uuid(),
     stock:true,
     best_seller: false,
-    image: "https://cdn.shopify.com/s/files/1/0477/1358/3267/products/FinalSqshadowsmall_540x.jpg?v=1613245653",
+    image: "https://cdn.shopify.com/s/files/1/0477/1358/3267/products/Shadow_featurve_900x.jpg?v=1648172616",
     image_hover: "https://cdn.shopify.com/s/files/1/0477/1358/3267/products/Final3sq_540x.jpg?v=1613245653",
     title: "Fitkettle",
     price: "6000",

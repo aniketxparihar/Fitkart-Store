@@ -31,6 +31,7 @@ const Login = () => {
       });
       if (response.data.foundUser) {
         localStorage.setItem("user", JSON.stringify(response.data));
+        userHandler(response.data.foundUser)
       }
     } catch (error) {
       console.log(error);
