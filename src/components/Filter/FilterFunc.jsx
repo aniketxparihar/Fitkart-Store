@@ -1,7 +1,6 @@
-
 import { useFilter } from "../../Context/Filter-Context";
 const funcFilter = (prod) => {
-    const { state, dispatch } = useFilter();
+  const { state, dispatch } = useFilter();
   return prod
     ?.filter((product) => {
       return (
