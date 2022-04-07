@@ -9,6 +9,7 @@ const CartCard = (product) => {
   const { authToken } = useAuth();
   const { cartItems, setCartItems } = useCart();
   const { wishlistItems, setWishlistItems } = useWishlist();
+
   const addToWishlist = async () => {
     const response = await axios.post(
       "/api/user/wishlist",
@@ -23,6 +24,7 @@ const CartCard = (product) => {
     );
     setWishlistItems(response.data.wishlist);
   };
+
   const removeCartItem = async (product) => {
     const response = await axios.delete(`/api/user/cart/${product._id}`, {
       headers: {
@@ -31,6 +33,7 @@ const CartCard = (product) => {
     });
     setCartItems(response.data.cart);
   };
+  
   const decreaseCartItem = async (product) => {
     const response = await axios.post(
       `/api/user/cart/${product._id}`,
@@ -45,7 +48,6 @@ const CartCard = (product) => {
         },
       }
     );
-    console.log("Yahana", response);
     setCartItems(response.data.cart);
   };
 
@@ -63,13 +65,11 @@ const CartCard = (product) => {
         },
       }
     );
-    console.log("increase", response);
     setCartItems(response.data.cart);
   };
   const itemCount = cartItems.filter(
     (value) => value._id === product.product._id
   ).length;
-  console.log(cartItems);
   return (
     <div className="card__wrapper--horizontal  flex flex-col m-8 bg--main-black">
       <div className="card__header--row flex flex-col relative">
