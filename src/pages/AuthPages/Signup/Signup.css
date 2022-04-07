@@ -1,0 +1,74 @@
+@import url("../../../CSS/form.css");
+@import url("../../../CSS/font.css");
+@import url("../../../CSS/nav.css");
+/*Elements*/
+html {
+  font-size: 8px;
+  font-family: Philosophy, "Noto Sans";
+}
+body {
+  height: 100vh;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+main {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main__container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: auto;
+  position: sticky;
+}
+.main__container::-webkit-scrollbar {
+  display: none;
+}
+
+::placeholder {
+  color: var(--gray-400);
+  opacity: 1; 
+  border-left: 4px;
+}
+
+
+@media screen and (max-width: 1000px) {
+ header {
+  min-height: max-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10rem;
+  
+}
+.headings{
+  margin-top:10rem;
+}
+.link{
+  display: none;
+}
+.hamburger{
+  display: block;
+}
+.form__container {
+  margin-top:10rem;
+  width:40rem;
+  height: 60rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 24px;
+  box-shadow: -0px 0px 20px 6px rgba(0, 0, 0, 0.4);
+}
+}

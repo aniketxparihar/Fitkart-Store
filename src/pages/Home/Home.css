@@ -1,0 +1,88 @@
+@import url("../../CSS/font.css");
+@import url("../../CSS/nav.css");
+
+
+
+.explore{
+  font-size: 2rem;
+  padding:3rem 6rem;
+  display: flex;
+  align-items: center;
+}
+.landing_page_main {
+  height: max-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+  
+}
+.home__header {
+  min-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color:var(--gray-200);
+  margin:40rem 0rem 20rem 0rem;
+}
+.home__heading {
+  font-size:5rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.categories__container{
+  height:max-content;
+  display:flex;
+  flex-wrap:wrap;
+
+}
+
+
+
+/* 
+@media screen and (max-width: 1000px) {
+ .home__header {
+  min-height: max-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10rem;
+  
+}
+.home__headings{
+  margin-top:10rem;
+}
+.link{
+  display: none;
+}
+.hamburger{
+  display: block;
+}
+}
+
+.landing__page__image{
+z-index: -100;
+position: absolute;
+
+top:10rem;
+width: 100%;
+height: auto;
+}
+.heading {
+  font-size: 6rem;
+  font-weight: 900;
+  text-align: center;
+}
+.sub__heading {
+  font-size: 2rem;
+}
+span {
+  color: var(--main-white);
+} */
