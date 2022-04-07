@@ -12,9 +12,7 @@ import CartBill from "../../components/CartBill/CartBill";
 const Cart = () => {
   const { authToken } = useAuth();
   const { cartItems, setCartItems } = useCart();
-  const [coupon, setCoupon] = useState("");
-  const [couponApplied, setCouponApplied] = useState(false);
- 
+  
   
   
   useEffect(() => {
@@ -44,6 +42,9 @@ const Cart = () => {
       Number(current.actual_price - current.price) * Number(current.qty);
     return totalDiscount;
   }, 0);
+  const [coupon, setCoupon] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
+ 
   const [finalPrice, setFinalPrice] = useState(cartPrice - cartDiscount + 250);
   useEffect(() => {
     setFinalPrice(cartPrice - cartDiscount + 250);
