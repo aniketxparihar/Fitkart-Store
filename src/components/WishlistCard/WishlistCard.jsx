@@ -30,7 +30,6 @@ const WishlistCard = (product) => {
     );
     removeFromWishlist(product);
   };
-  console.log("Hello", product.product);
   return (
     <div
       key={product.product._id}
