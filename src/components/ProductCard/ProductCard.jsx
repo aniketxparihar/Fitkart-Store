@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useCurrentProduct } from "../../Context/CurrentProduct-Context";
 import { useWishlist } from "../../Context/wishlist-context";
+import { useCart } from "../../Context/cart-context";
 
 const ProductCard = ({ product }) => {
   const { authToken } = useAuth();
   const { currentProductHandler } = useCurrentProduct();
   const { wishlistItems, setWishlistItems } = useWishlist();
+  const { cartItems, setCartItems } = useCart();
   const addToWishlist = async () => {
     const response = await axios.post(
       "/api/user/wishlist",
@@ -35,6 +37,13 @@ const ProductCard = ({ product }) => {
           authorization: authToken,
         },
       }
+    );
+    setCartItems(
+      response.data.cart.reduce((filter, current) => {
+        if (!filter.find((item) => item._id === current._id)) {
+          return filter.concat([current]);
+        } else return filter;
+      }, [])
     );
   };
   return (
