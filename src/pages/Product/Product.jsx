@@ -30,7 +30,7 @@ const Product = () => {
             <Filter prod={prod} />
             <div className="products">
               {filterData.map((product) => {
-                return <ProductCard product={product} />;
+                return <ProductCard key={product._id} product={product} />;
               })}
             </div>
           </div>

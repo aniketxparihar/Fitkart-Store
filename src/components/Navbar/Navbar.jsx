@@ -57,7 +57,11 @@ const Navbar = (props) => {
               </div>
             </i>
           </Link>
-
+          <Link to="/Profile" className="link pointer" id="cart__page">
+            <i className="badge__icon material-icons relative p-5 txt-green-400">
+              account_circle
+            </i>
+          </Link>
           <div
             className="link pointer hamburger"
             id="cart__page"
@@ -87,6 +91,11 @@ const Navbar = (props) => {
             <div className="badge--right badge--small txt-2xl txt-main-black bg--success flex justify-center align-center rounded-full absolute">
               {cartItems.length}
             </div>
+          </i>
+        </Link>
+        <Link to="/Profile" className="hidden__link pointer" id="cart__page">
+          <i className="badge__icon material-icons relative p-5 txt-green-400">
+            account_circle
           </i>
         </Link>
         <div

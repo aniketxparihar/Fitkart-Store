@@ -16,7 +16,7 @@ import Address from "./pages/Address/Address";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import AuthRoute from "./components/AuthRoute/AuthRoute";
-
+import UserProfile from "./pages/UserProfile/UserProfile";
 
 const Routes = () => {
   return (
@@ -29,6 +29,7 @@ const Routes = () => {
           <Route path="/Address" element={<Address />} />
           <Route path="/Wishlist" element={<Wishlist />} />
           <Route path="/Cart" element={<Cart />} />
+          <Route path="/Profile" element={<UserProfile />} />
         </Route>
       </Route>
       <Route element={<AuthRoute />}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import getDiscount from "../Discount/Discount";
 import { useCart } from "../../Context/cart-context";
 import axios from "axios";
@@ -9,7 +9,6 @@ const CartCard = (product) => {
   const { authToken } = useAuth();
   const { cartItems, setCartItems } = useCart();
   const { wishlistItems, setWishlistItems } = useWishlist();
-
   const addToWishlist = async () => {
     const response = await axios.post(
       "/api/user/wishlist",

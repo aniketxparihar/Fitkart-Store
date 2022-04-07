@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import getDiscount from "../Discount/Discount";
 import { useAuth } from "../../Context/auth-Context";
 import { Link } from "react-router-dom";
@@ -12,6 +12,9 @@ const ProductCard = ({ product }) => {
   const { currentProductHandler } = useCurrentProduct();
   const { wishlistItems, setWishlistItems } = useWishlist();
   const { cartItems, setCartItems } = useCart();
+  const [adding, setAdding] = useState("Add to cart");
+  const [addingWishlist, setAddingWishlist] = useState("favorite_border");
+  useEffect(() => wishlistItems.some((item)=>item._id===product._id)===true?setAddingWishlist("favorite"):null, []);
   const addToWishlist = async () => {
     const response = await axios.post(
       "/api/user/wishlist",
@@ -25,6 +28,7 @@ const ProductCard = ({ product }) => {
       }
     );
     setWishlistItems(response.data.wishlist);
+      
   };
   const addToCart = async () => {
     const response = await axios.post(
@@ -38,6 +42,7 @@ const ProductCard = ({ product }) => {
         },
       }
     );
+    setTimeout(() => setAdding("Add to cart"), 1000);
     setCartItems(
       response.data.cart.reduce((filter, current) => {
         if (!filter.find((item) => item._id === current._id)) {
@@ -46,9 +51,10 @@ const ProductCard = ({ product }) => {
       }, [])
     );
   };
+ 
   return (
     <div
-      key={product._id}
+      
       className="card__wrapper flex rounded-xl flex-col m-8 box-shadow"
     >
       <div className="card__header flex flex-col relative">
@@ -69,10 +75,11 @@ const ProductCard = ({ product }) => {
           - {getDiscount(product.price, product.actual_price)}%
         </p>
         <i
-          onClick={() => addToWishlist()}
+          onClick={() => { addToWishlist(); setAddingWishlist("favorite");}}
           className="liked material-icons pointer txt-main-white"
+          style={{color:addingWishlist==="favorite"?"red":"white"}}
         >
-          favorite_border
+          {addingWishlist}
         </i>
       </div>
       <div className="procard__links p-4 align-center flex">
@@ -87,10 +94,10 @@ const ProductCard = ({ product }) => {
       <div className="card__links p-4 align-center flex">
         <button
           className="button p-4 txt-2xl width-full txt-bold bg-main-black border--primary txt--primary b-1 border-solid  rounded-xl flex justify-center align-center"
-          onClick={() => addToCart()}
+          onClick={() => { addToCart(); setAdding("Adding to cart..."); }}
         >
           <i className="button__icon material-icons">shopping_cart</i>
-          Add to cart
+         {adding}
         </button>
       </div>
     </div>
