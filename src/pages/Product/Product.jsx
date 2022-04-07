@@ -23,8 +23,6 @@ const Product = () => {
   const filterData = funcFilter(prod);
 
   return (
-    <>
-      <div>
         <main className="product_page_main">
           <div className="main__container">
             <Filter prod={prod} />
@@ -36,8 +34,6 @@ const Product = () => {
           </div>
           
         </main>
-      </div>
-    </>
   );
 };
 
