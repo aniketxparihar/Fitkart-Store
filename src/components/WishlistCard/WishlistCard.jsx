@@ -38,7 +38,9 @@ const WishlistCard = (product) => {
       key={product.product._id}
       className="card__wrapper flex rounded-xl flex-col m-8 box-shadow"
     >
-      <div className="card__header flex flex-col relative">
+      <Link
+      to={`/Product/${product._id}`}
+      onClick={currentProductHandler(product)} className="card__header flex flex-col relative">
         <img
           className=" card__image--tall pointer"
           src={product.product.image}
@@ -50,7 +52,7 @@ const WishlistCard = (product) => {
         <div className="card__headings h3 txt-gray-50">
           {product.product.rating}⭐
         </div>
-      </div>
+      </Link>
       <div className="card__footer  m-2 flex align-center ">
         <p className="txt-4xl bold txt-gray-100 m-4">
           ₹{product.product.price}
@@ -68,18 +70,21 @@ const WishlistCard = (product) => {
           favorite
         </i>
       </div>
-      <div id="buynow" className="card__links p-4 align-center flex">
+      {/* <div id="buynow" className="card__links p-4 align-center flex">
         <Link
           to={`/Product/${product.product._id}`}
           className="button p-4 txt-2xl width-full txt-bold bg--primary  rounded-xl flex justify-center align-center"
         >
           Buy Now
         </Link>
-      </div>
-      <div id="addtocart" className="card__links p-4 align-center flex">
+      </div> */}
+      <div className="card__links p-4 align-center flex">
         <button
-          className="button p-4 txt-2xl width-full txt-bold bg-main-black border--primary txt--primary b-1 border-solid  rounded-xl flex justify-center align-center"
-          onClick={() => {setAdding("Adding to cart...");addToCart(product.product)}}
+          className="button p-4 txt-2xl width-full txt-bold bg--primary  rounded-xl flex justify-center align-center"
+          onClick={() => {
+            addToCart();
+            setAdding("Adding to cart...");
+          }}
         >
           <i className="button__icon material-icons">shopping_cart</i>
           {adding}

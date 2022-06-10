@@ -10,6 +10,19 @@
   transition: 1s;
   cursor: pointer;
 }
+.test-login__button{
+   border-radius: 8px;
+  border: none;
+  padding: 1.5rem;
+  outline: none;
+  background: none;
+  color: var(--main-black);
+  font-size: 2rem;
+  background-color: var(--primary);
+  transition: 1s;
+  cursor: pointer;
+  margin:2rem 0rem;
+}
 .form__container {
   width: 50rem;
   height:max-content;

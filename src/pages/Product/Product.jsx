@@ -15,25 +15,61 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 
 const Product = () => {
   const { state, dispatch } = useFilter();
-  const { productData, searchFilterString } = useProductList();
+  const { productData, searchFilterString,pageNumbers,setPageNumbers } = useProductList();
   const { wishlistItems, wishlistCount, addToWishlist } = useWishlist();
   const { cartCount, cartItems, addToCart } = useCart();
   const { foundUser } = useAuth();
   const prod = productData;
   const filterData = funcFilter(prod);
+  const [start, setStart] = useState(1);
+  const [end, setEnd] = useState(5);
+  
+  useEffect(() => {
+    const numberOfPages = () => Math.ceil(filterData.length / 4);
+    for (let x = 1; x <= numberOfPages(); x++) {
+      setPageNumbers((prev) => [...prev, x]);
+    }
+    
+  },[])
+  useEffect(() => {
+    setPageNumbers([]);
+    const numberOfPages = () => Math.ceil(filterData.length / 4);
+    for (let x = 1; x <= numberOfPages(); x++) {
+      setPageNumbers((prev)=>[...prev,x])
+    }
+  }, [state,productData])
 
   return (
-        <main className="product_page_main">
-          <div className="main__container">
-            <Filter prod={prod} />
-            <div className="products">
-              {filterData.map((product) => {
-                return <ProductCard key={product._id} product={product} />;
-              })}
-            </div>
-          </div>
-          
-        </main>
+    <main className="product_page_main">
+      <div className="main__container">
+        <Filter prod={prod} />
+        <div className="products">
+          {filterData.map((product) => {
+            return <ProductCard key={product._id} product={product} />;
+          }).slice(start,end)}
+        </div>
+      </div>
+      <ul className="pagination__container rounded-xl txt-main-white p-8 h5 flex justify-center ">
+        <span className="page__previous pointer txt--primary " onClick={() => { if (start >= 4) { setStart(start - 4); setEnd(end - 4) } }}>&lt; </span>
+       
+        {
+          [...pageNumbers].map((page,index) => {
+            return (
+              <li
+                className="page__number"
+                onClick={() => {
+                  setStart(index);
+                  setEnd(index+4);
+                }}
+              >
+                {page}
+              </li>
+            );
+          })
+        }
+        <span className="page__next pointer txt--primary" onClick={() => { if (end <= 9) { setStart(start + 4); setEnd(end + 4) } }}>&gt;</span>
+      </ul>
+    </main>
   );
 };
 

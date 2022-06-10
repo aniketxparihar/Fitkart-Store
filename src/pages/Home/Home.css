@@ -27,7 +27,7 @@
   justify-content: center;
   align-items: center;
   color:var(--gray-200);
-  margin:40rem 0rem 20rem 0rem;
+  margin:20rem 0rem 20rem 0rem;
 }
 .home__heading {
   font-size:5rem;
@@ -44,7 +44,7 @@
 
 
 
-/* 
+
 @media screen and (max-width: 1000px) {
  .home__header {
   min-height: max-content;
@@ -85,4 +85,4 @@ height: auto;
 }
 span {
   color: var(--main-white);
-} */
+}

@@ -1,20 +1,7 @@
 import React from 'react'
+
 const Filter = (dispatch) => {
 
-
-  
-  return (
-    <div>
-     
-    </div>
-  );
-}
-
-export default Filterimport React from 'react'
-const Filter = (dispatch) => {
-
-
-  
   return (
     <div>
       <div className="bg-main-black box-shadow filters">

@@ -1,4 +1,5 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import "./ProductCard.css"
 import getDiscount from "../Discount/Discount";
 import { useAuth } from "../../Context/auth-Context";
 import { Link } from "react-router-dom";
@@ -54,10 +55,11 @@ const ProductCard = ({ product }) => {
  
   return (
     <div
-      
       className="card__wrapper flex rounded-xl flex-col m-8 box-shadow"
     >
-      <div className="card__header flex flex-col relative">
+      <Link
+      to={`/Product/${product._id}`}
+      onClick={currentProductHandler(product)} className="card__header flex flex-col relative">
         <img
           className=" card__image--tall pointer"
           src={product.image}
@@ -65,7 +67,7 @@ const ProductCard = ({ product }) => {
         />
         <div className="card__headings h3 txt-gray-50">{product.title}</div>
         <div className="card__headings h3 txt-gray-50">{product.rating}⭐</div>
-      </div>
+      </Link>
       <div className="card__footer  m-2 flex align-center ">
         <p className="txt-4xl bold txt-gray-100 m-4">₹{product.price}</p>
         <p className="txt-4xl bold m-0 txt-gray-400 line-through">
@@ -75,14 +77,29 @@ const ProductCard = ({ product }) => {
           - {getDiscount(product.price, product.actual_price)}%
         </p>
         <i
-          onClick={() => { addToWishlist(); setAddingWishlist("favorite");}}
+          onClick={() => {
+            addToWishlist();
+            setAddingWishlist("favorite");
+          }}
           className="liked material-icons pointer txt-main-white"
-          style={{color:addingWishlist==="favorite"?"red":"white"}}
+          style={{ color: addingWishlist === "favorite" ? "red" : "white" }}
         >
           {addingWishlist}
         </i>
       </div>
-      <div className="procard__links p-4 align-center flex">
+      <div className="card__links p-4 align-center flex">
+        <button
+          className="button p-4 txt-2xl width-full txt-bold bg--primary  rounded-xl flex justify-center align-center"
+          onClick={() => {
+            addToCart();
+            setAdding("Adding to cart...");
+          }}
+        >
+          <i className="button__icon material-icons">shopping_cart</i>
+          {adding}
+        </button>
+      </div>
+      {/* <div className="procard__links p-4 align-center flex">
         <Link
           to={`/Product/${product._id}`}
           className="button p-4 txt-2xl width-full txt-bold bg--primary  rounded-xl flex justify-center align-center"
@@ -90,16 +107,7 @@ const ProductCard = ({ product }) => {
         >
           Buy Now
         </Link>
-      </div>
-      <div className="card__links p-4 align-center flex">
-        <button
-          className="button p-4 txt-2xl width-full txt-bold bg-main-black border--primary txt--primary b-1 border-solid  rounded-xl flex justify-center align-center"
-          onClick={() => { addToCart(); setAdding("Adding to cart..."); }}
-        >
-          <i className="button__icon material-icons">shopping_cart</i>
-         {adding}
-        </button>
-      </div>
+      </div> */}
     </div>
   );
 };

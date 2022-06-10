@@ -10,7 +10,6 @@ function App() {
       <div className="App__main">
         <Outlet />
       </div>
-      <Footer/>
     </div>
   );
 }
