@@ -20,24 +20,7 @@ main {
   align-items: center;
   justify-content: center;
 }
-.main__container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  overflow: auto;
-  position: sticky;
-}
-.main__container::-webkit-scrollbar {
-  display: none;
-}
 
-::placeholder {
-  color: var(--gray-400);
-  opacity: 1; 
-  border-left: 4px;
-}
 
 
 @media screen and (max-width: 1000px) {
@@ -63,7 +46,7 @@ main {
 .form__container {
   margin-top:10rem;
   width:40rem;
-  height: 60rem;
+  height: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;

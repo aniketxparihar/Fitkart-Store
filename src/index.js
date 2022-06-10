@@ -11,6 +11,7 @@ import { AuthProvider } from "./Context/auth-Context";
 import { FilterProvider } from "./Context/Filter-Context";
 import Routes from './Routes'
 import { CurrentProductProvider } from "./Context/CurrentProduct-Context";
+import { AddressProvider } from "./Context/Address-Context";
 // Call make Server
 makeServer();
 
@@ -23,7 +24,9 @@ ReactDOM.render(
             <AuthProvider>
               <FilterProvider>
                 <CurrentProductProvider>
-                  <Routes />
+                  <AddressProvider>
+                    <Routes />
+                  </AddressProvider>
                 </CurrentProductProvider>
               </FilterProvider>
             </AuthProvider>

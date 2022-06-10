@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFilter } from "../../Context/Filter-Context";
 import { CheckboxInput } from "../../components/CheckboxInput/CheckboxInput";
 import { RadioInput } from "../../components/RadioInput/RadioInput";
+import { useProductList } from "../../Context/productList-context";
 
 const Filter = ({ prod }) => {
   const { filterVisible } = useFilter();
   const { state, dispatch } = useFilter();
+ 
   return (
     <div
       className="bg-main-black box-shadow filters"

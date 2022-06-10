@@ -16,13 +16,7 @@ const UserProfile = () => {
           <div className="list__head  txt-main-white p-4">User</div>
           <div className="list__stacked">
             <div className="list__item  txt-main-white p-4 ">
-              Name: {foundUser.firstName} {foundUser.lastName}
-            </div>
-            <div className="list__item  txt-main-white p-4 ">
-              Email : {foundUser.email}
-            </div>
-            <div className="list__item txt-main-white p-4 ">
-              Created :{foundUser.createdAt}
+              Hi {foundUser.firstName} {foundUser.lastName}
             </div>
           </div>
         </div>

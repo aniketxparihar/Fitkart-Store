@@ -53,15 +53,15 @@ main {
   box-shadow: -0px 0px 20px 6px rgba(0, 0, 0, 0.4);
 }
 .heading {
-  font-size: 5rem;
+  font-size: 3.5rem;
   padding: 1rem;
   font-weight: 900;
-  color: var(--gray-400);
+  color: var(--gray-50);
 }
 .noaccount {
   text-align: center;
   font-size: 2rem;
-  margin-top: 2rem;
+  margin: 2rem 0rem;
   color: var(--gray-300);
 }
 
@@ -87,7 +87,7 @@ main {
 }
 .form__container {
   width:40rem;
-  height: 50rem;
+  height: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;

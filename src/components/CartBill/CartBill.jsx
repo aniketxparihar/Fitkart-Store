@@ -1,5 +1,6 @@
-import React from "react";
-
+import React,{useState,useEffect} from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 const CartBill = ({
   cartPrice,
   cartItems,
@@ -10,10 +11,25 @@ const CartBill = ({
   setCouponApplied,
   coupon,
 }) => {
+  
   return (
     <div className="bill bg-main-black box-shadow ">
       <div className="p-6 border-bottom">
         <div className="txt-4xl p-4 txt-gray-200">Price Details</div>
+      </div>
+      <div className="p-6 flex ">
+        <div className="total__amount txt-2xl p-4 txt-gray-200">
+          <input
+            type="radio"
+            name="address"
+            id="2c, Hauz Khas , Mumbai , India"
+            className="p-4"
+            checked={true}
+          />
+          <label htmlFor="2c, Hauz Khas , Mumbai , India">
+            2c, Hauz Khas , Mumbai , India
+          </label>
+        </div>
       </div>
       <div className="p-6 flex ">
         <div className="total__price__text txt-2xl p-4 txt-gray-200">
@@ -81,10 +97,14 @@ const CartBill = ({
           with this order!
         </div>
       </div>
+
       <div className="p-6 flex ">
-        <button className="button width-full  bg--primary p-8 txt-4xl txt-bold txt-main-black rounded-2xl flex justify-center align-center">
-          Proceed to Pay
-        </button>
+        <Link
+          to="/Checkout"
+          className="button width-full  bg--primary p-8 txt-4xl txt-bold txt-main-black rounded-2xl flex justify-center align-center"
+        >
+          Pay
+        </Link>
       </div>
     </div>
   );

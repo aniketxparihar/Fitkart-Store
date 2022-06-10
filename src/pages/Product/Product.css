@@ -46,6 +46,7 @@
   box-shadow: -0px 0px 20px 6px rgba(0, 0, 0, 0.4);
   z-index: 99999;
   transition: 0.5s;
+  overflow: auto;
 }
 
 #row_one {
@@ -134,7 +135,7 @@
      position: absolute;
      top:2vh;
     margin:0rem;
-    padding:0rem;
+    padding-bottom:8rem ;
   }
  
   .filters{
