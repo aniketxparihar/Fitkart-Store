@@ -22,18 +22,16 @@ const Home = () => {
             </div>
             <div className="home__heading">only @Fitkart</div>
           </div>
-          <div className="home__landing__image">
-            <img
-              className="image__responsive"
-              src={landing__page__ecomm__image}
-            />
-          </div>
           <Link
             to="/Product"
             className="explore button m-8 p-4  txt-2xl txt-bold bg-violet-400 rounded-m"
           >
             Explore Collection
           </Link>
+          <div className="home__landing__image">
+            <img src={landing__page__ecomm__image} />
+          </div>
+
           <main className="categories__container">
             {categoryList.map((category) => {
               return <CategoryCard category={category} key={category._id} />;

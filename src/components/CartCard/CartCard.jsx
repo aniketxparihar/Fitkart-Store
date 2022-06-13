@@ -1,71 +1,22 @@
-import React,{useState} from "react";
-import getDiscount from "../Discount/Discount";
-import { useCart } from "../../Context/cart-context";
+import React, { useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
+
+import { getDiscount } from "../../utils/discountUtil";
+import { notify } from "../../utils/toastUtil";
+
+import { useCart } from "../../Context/cart-context";
 import { useAuth } from "../../Context/auth-Context";
 import { useWishlist } from "../../Context/wishlist-context";
+import { removeFromCart } from "../../Services/CartService";
+import { addToWishlist } from "../../Services/WishlistService";
+import { increaseCartItem, decreaseCartItem } from "../../Services/CartService";
 
 const CartCard = (product) => {
   const { authToken } = useAuth();
   const { cartItems, setCartItems } = useCart();
   const { wishlistItems, setWishlistItems } = useWishlist();
-  const addToWishlist = async () => {
-    const response = await axios.post(
-      "/api/user/wishlist",
-      {
-        product: product.product,
-      },
-      {
-        headers: {
-          authorization: authToken,
-        },
-      }
-    );
-    setWishlistItems(response.data.wishlist);
-  };
 
-  const removeCartItem = async (product) => {
-    const response = await axios.delete(`/api/user/cart/${product._id}`, {
-      headers: {
-        authorization: authToken,
-      },
-    });
-    setCartItems(response.data.cart);
-  };
-  
-  const decreaseCartItem = async (product) => {
-    const response = await axios.post(
-      `/api/user/cart/${product._id}`,
-      {
-        action: {
-          type: "decrement",
-        },
-      },
-      {
-        headers: {
-          authorization: authToken,
-        },
-      }
-    );
-    setCartItems(response.data.cart);
-  };
-
-  const increaseCartItem = async (product) => {
-    const response = await axios.post(
-      `/api/user/cart/${product._id}`,
-      {
-        action: {
-          type: "increment",
-        },
-      },
-      {
-        headers: {
-          authorization: authToken,
-        },
-      }
-    );
-    setCartItems(response.data.cart);
-  };
   const itemCount = cartItems.filter(
     (value) => value._id === product.product._id
   ).length;
@@ -78,7 +29,7 @@ const CartCard = (product) => {
           alt=""
         />
         <div className="card__headings--horizontal p-4">
-          <p className="txt-4xl txt-gray-200">{product.title}</p>
+          <p className="txt-4xl txt-gray-200">{product.product.title}</p>
           <div className="card__footer flex align-center ">
             <p className="txt-4xl bold  txt-gray-200 ">
               ₹{product.product.price}
@@ -95,9 +46,14 @@ const CartCard = (product) => {
           <div className="card__footer flex align-center ">
             <p
               className="add txt-4xl bold m-2 txt-gray-800  rounded-full flex justify-center align-center bg-pink-50 pointer"
-              onClick={() => {
-                if (product.product.qty > 1) decreaseCartItem(product.product);
-                else removeCartItem(product.product);
+              onClick={async () => {
+                if (product.product.qty >= 2) {
+                  const res = await decreaseCartItem(authToken,product.product);
+                  setCartItems(res.data.cart);
+                }
+                else {
+                  notify("0 items not allowed","error")
+                }
               }}
             >
               -
@@ -107,8 +63,9 @@ const CartCard = (product) => {
             </p>
             <p
               className="subtract txt-4xl bold m-2 bg-main-white rounded-full flex justify-center bg-pink-50 align-center pointer"
-              onClick={() => {
-                increaseCartItem(product.product);
+              onClick={async () => {
+                const res = await increaseCartItem(authToken,product.product);;
+                setCartItems(res.data.cart);
               }}
             >
               +
@@ -121,8 +78,10 @@ const CartCard = (product) => {
           <div className="width-half m-2">
             <button
               className="button width-full  bg-gray-300 p-4 txt-2xl txt-bold txt-main-black rounded-xl flex justify-center align-center"
-              onClick={() => {
-                removeCartItem(product.product);
+              onClick={async () => {
+                const res2=await removeFromCart(authToken, product.product)
+                await setCartItems(res2.data.cart);
+                notify("Item Removed", "success");
               }}
             >
               Remove
@@ -131,9 +90,12 @@ const CartCard = (product) => {
           <div className="width-half m-2">
             <button
               className="button width-full  bg-gray-300  p-4 txt-2xl txt-bold txt-main-black rounded-xl flex justify-center align-center"
-              onClick={() => {
-                addToWishlist();
-                removeCartItem(product.product);
+              onClick={async () => {
+                const res1=await addToWishlist(authToken, product.product);
+                await setWishlistItems(res1.data.wishlist);
+                const res2=await removeFromCart(authToken, product.product)
+                await setCartItems(res2.data.cart);
+                notify("Item Added to wishlist", "success");
               }}
             >
               Move to Wishlist

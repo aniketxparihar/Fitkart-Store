@@ -56,7 +56,9 @@
 .total__amount__value {
     margin-left: auto;
 }
-
+.back{
+    width: max-content;
+}
 .cart__products {
     height: max-content;
     width: fit-content;

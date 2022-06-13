@@ -22,6 +22,7 @@ const AuthProvider = (props) => {
             tokenHandler(JSON.parse(localStorage.getItem("user")).encodedToken);
         }
     }, []);
+    console.log(foundUser)
     return (
         <AuthContext.Provider value={{ foundUser, authToken, userHandler, tokenHandler, createdUser, createdUserHandler}}>
             {props.children}

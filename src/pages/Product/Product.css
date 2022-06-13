@@ -113,6 +113,10 @@
 .list__wrapper {
   border: 0px solid var(--gray-400);
 }
+.open-filter{
+ 
+  display: none;
+}
 
 @media screen and (max-width: 1000px) {
   .main__container {
@@ -155,8 +159,26 @@
 .hamburger{
   display: block;
 }
+.open-filter{
+  display: flex;
+  width:5rem;
+  position: absolute;
+  top:15rem;
+  left:-3.2rem;
+  padding:2rem 2rem 2rem 4rem;
+  border:1px solid var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 24px;
+  background-color: var(--main-black);
+}
+.open-filter--button{
+  z-index:12900;
 
 }
+}
+
 .page__previous,.page__next{
   margin:0rem 2rem;
   height:4rem;
@@ -184,6 +206,6 @@ background-color: var(--gray-600);
 }
 .pagination__container{
   position: fixed;
-  bottom:0;
+  bottom:0rem;
   background-color: var(--main-black);
 }

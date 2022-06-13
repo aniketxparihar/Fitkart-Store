@@ -7,14 +7,20 @@ import "./ProductPage.css";
 import { useAuth } from "../../Context/auth-Context";
 import Review from "../../components/Review/Review";
 import { useCart } from "../../Context/cart-context";
+import { notify } from "../../utils/toastUtil"; 
+import { addToCart, removeFromCart } from "../../Services/CartService";
+
 const ProductPage = () => {
   const { _id } = useParams();
   const [singleProductData, setSingleProductData] = useState({});
   const [newReview, setNewReview] = useState("");
   const [reviews, setReviews] = useState([]);
   const { foundUser,authToken } = useAuth();
-  const {cartItems,setCartItems}=useCart()
+  const { cartItems, setCartItems } = useCart()
+  const [addToCartButton, setAddToCartButton] = useState("Add to cart")
+  const { currentProduct } = useCurrentProduct();
   useEffect(() => {
+    
     (async () => {
       try {
         const response = await axios.get(`/api/products/${_id}`);
@@ -28,27 +34,11 @@ const ProductPage = () => {
       }
     })();
   }, []);
-  const addToCart = async () => {
-    const response = await axios.post(
-      "/api/user/cart",
-      {
-        product: singleProductData,
-      },
-      {
-        headers: {
-          authorization: authToken,
-        },
-      }
-    );
-    console.log("Han:",response)
-    setCartItems(
-      response.data.cart.reduce((filter, current) => {
-        if (!filter.find((item) => item._id === current._id)) {
-          return filter.concat([current]);
-        } else return filter;
-      }, [])
-    );
-  };
+  useEffect(() => {
+     if (cartItems.some((item) => item._id === currentProduct._id))
+       setAddToCartButton("Remove from cart");
+     else setAddToCartButton("Add to cart");
+ }, []);
   return (
     <div>
       <main>
@@ -84,10 +74,24 @@ const ProductPage = () => {
                 <div className="card__links p-4 align-center flex">
                   <button
                     className="product__action button  p-8 h5 width-full txt-bold bg-main-white  txt-main-black  rounded-xl flex justify-center align-center"
-                    onClick={addToCart}
-                  >
+                    onClick={async () => {
+                      setAddToCartButton("Removing...");
+                   if(cartItems.some((item)=>item._id===singleProductData._id)){
+                   const res = await removeFromCart(authToken, singleProductData);
+                   await setCartItems(res.data.cart);
+                   setTimeout(() => setAddToCartButton("Add to cart"), 1000);
+                   notify("Removed from cart", "success");
+                   }
+                   else {
+                     setAddToCartButton("Adding...");
+                     const res = await addToCart(authToken, singleProductData);
+                     await setCartItems(res.data.cart);
+                     setTimeout(() => setAddToCartButton("Remove From cart"), 1000);
+                     notify("Added to cart", "success");
+                 }
+          }}>
                     <i className="button__icon material-icons">shopping_cart</i>
-                    Add to cart
+                    {addToCartButton}
                   </button>
                 </div>
 
@@ -101,7 +105,7 @@ const ProductPage = () => {
                 </div>
                 <div className="enter__review">
                   <input
-                    className="name h5 txt-gray-200 p-4 flex align-center width-full"
+                    className="name h5 txt-gray-900 p-4 flex align-center width-full"
                     placeholder="Enter Review"
                     onChange={(e) => setNewReview(e.target.value)}
                     value={newReview}
@@ -109,6 +113,7 @@ const ProductPage = () => {
                   <button
                     onClick={() => {
                       setReviews(reviews.concat(newReview));
+                      notify("Review Added","success")
                     }}
                     className="button submit__review p-4 txt-2xl width-full txt-bold bg-main-black txt-gray-300   flex justify-center align-center"
                   >
@@ -134,18 +139,7 @@ const ProductPage = () => {
                 {reviews.map((review) => {
                   return <Review text={newReview} user={foundUser.firstName} />;
                 })}
-                <div className="reviews">
-                  <div className="name h5 txt-gray-200 p-4 flex align-center">
-                    John Doe{" "}
-                    <i className="verify material-icons txt--green-400">
-                      verified
-                    </i>
-                  </div>
-                  <div className="message h6 txt-gray-300 p-8 b-1 border-gray-400 border-solid rounded-m">
-                    I loved the product and It's material. Exactly as shown in
-                    the picture
-                  </div>
-                </div>
+               
               </div>
             </div>
           </div>

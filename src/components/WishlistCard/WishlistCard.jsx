@@ -1,89 +1,103 @@
-import React,{useState} from "react";
-import { useWishlist } from "../../Context/wishlist-context";
-import { useAuth } from "../../Context/auth-Context";
-import getDiscount from "../Discount/Discount";
+import React, { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const WishlistCard = (product) => {
-  const { authToken } = useAuth();
-  const { wishlistItems, setWishlistItems } = useWishlist();
-  const [adding, setAdding] = useState("Add to cart");
+import { getDiscount } from "../../utils/discountUtil";
+import { notify } from "../../utils/toastUtil";
+import { useAuth } from "../../Context/auth-Context";
+import {
+  addToWishlist,
+  removeFromWishlist,
+  getAllWishlist,
+} from "../../Services/WishlistService";
+import {
+  addToCart,
+  removeFromCart,
+  getAllCart,
+} from "../../Services/CartService";
 
-  const removeFromWishlist = async (product) => {
-    const response = await axios.delete(`/api/user/wishlist/${product._id}`, {
-      headers: {
-        authorization: authToken,
-      },
-    });
-    setWishlistItems(response.data.wishlist);
-  };
-  const addToCart = async (product) => {
-    const response = await axios.post(
-      "/api/user/cart/",
-      {
-        product: product,
-      },
-      {
-        headers: {
-          authorization: authToken,
-        },
-      }
-    );
-    setAdding("Add to cart")
-    removeFromWishlist(product);
-  };
+import { useCurrentProduct } from "../../Context/CurrentProduct-Context";
+import { useWishlist } from "../../Context/wishlist-context";
+import { useCart } from "../../Context/cart-context";
+
+const WishlistCard = ({product}) => {
+  const { authToken } = useAuth();
+  const { currentProductHandler } = useCurrentProduct();
+  const { wishlistItems, setWishlistItems } = useWishlist();
+  const { cartItems, setCartItems } = useCart();
+  const [adding, setAdding] = useState("Add to cart");
+  const [addingWishlist, setAddingWishlist] = useState("favorite_border");
+  useEffect(
+    () =>
+      wishlistItems.some((item) => item._id === product._id) === true
+        ? setAddingWishlist("favorite")
+        : null,
+    []
+  );
+ 
   return (
-    <div
-      key={product.product._id}
-      className="card__wrapper flex rounded-xl flex-col m-8 box-shadow"
-    >
+    <div className="card__wrapper flex rounded-xl flex-col m-8 box-shadow">
       <Link
-      to={`/Product/${product._id}`}
-      onClick={currentProductHandler(product)} className="card__header flex flex-col relative">
+        to={`/Product/${product._id}`}
+        onClick={currentProductHandler(product)}
+        className="card__header flex flex-col relative"
+      >
         <img
           className=" card__image--tall pointer"
-          src={product.product.image}
+          src={product.image}
           alt=""
         />
-        <div className="card__headings h3 txt-gray-50">
-          {product.product.title}
-        </div>
-        <div className="card__headings h3 txt-gray-50">
-          {product.product.rating}⭐
-        </div>
+        <div className="card__headings h3 txt-gray-50">{product.title}</div>
+        <div className="card__headings h3 txt-gray-50">{product.rating}⭐</div>
       </Link>
+
       <div className="card__footer  m-2 flex align-center ">
-        <p className="txt-4xl bold txt-gray-100 m-4">
-          ₹{product.product.price}
-        </p>
+        <p className="txt-4xl bold txt-gray-100 m-4">₹{product.price}</p>
         <p className="txt-4xl bold m-0 txt-gray-400 line-through">
-          ₹{product.product.actual_price}
+          ₹{product.actual_price}
         </p>
         <p className="txt-4xl bold m-4 txt-green-500">
-          - {getDiscount(product.product.price, product.product.actual_price)}%
+          - {getDiscount(product.price, product.actual_price)}%
         </p>
         <i
-          onClick={() => removeFromWishlist(product.product)}
-          className="liked material-icons pointer txt-red-500"
+          onClick={async () => {
+            if (wishlistItems.some((item) => item.id === product.id)) {
+              const res = await removeFromWishlist(authToken, product);
+              setWishlistItems(res.data.wishlist);
+              setAddingWishlist("favorite_border");
+              notify("Removed from wishlist", "success");
+            } else {
+              const res = await addToWishlist(authToken, product);
+              setWishlistItems(res.data.wishlist);
+              setAddingWishlist("favorite");
+              notify("Added to wishlist", "success");
+            }
+          }}
+          className="liked material-icons pointer txt-main-white"
+          style={{ color: addingWishlist === "favorite" ? "red" : "white" }}
         >
-          favorite
+          {addingWishlist}
         </i>
       </div>
-      {/* <div id="buynow" className="card__links p-4 align-center flex">
-        <Link
-          to={`/Product/${product.product._id}`}
-          className="button p-4 txt-2xl width-full txt-bold bg--primary  rounded-xl flex justify-center align-center"
-        >
-          Buy Now
-        </Link>
-      </div> */}
+
       <div className="card__links p-4 align-center flex">
         <button
           className="button p-4 txt-2xl width-full txt-bold bg--primary  rounded-xl flex justify-center align-center"
-          onClick={() => {
-            addToCart();
-            setAdding("Adding to cart...");
+          onClick={async () => {
+            if (cartItems.some((item) => item._id === product._id)) {
+              const res = await removeFromWishlist(authToken, product);
+              await setWishlistItems(res.data.wishlist);
+              setTimeout(() => setAdding("Add to cart"), 1000);
+              notify("Item Already in the cart", "success");
+            } else {
+              setAdding("Adding to cart...");
+              const res1 = await addToCart(authToken, product);
+              await setCartItems(res1.data.cart);
+              const res2 = await removeFromWishlist(authToken, product);
+              await setWishlistItems(res2.data.wishlist);
+              notify("Added to cart", "success");
+            }
           }}
         >
           <i className="button__icon material-icons">shopping_cart</i>
@@ -93,5 +107,4 @@ const WishlistCard = (product) => {
     </div>
   );
 };
-
 export default WishlistCard;

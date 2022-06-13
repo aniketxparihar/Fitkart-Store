@@ -48,3 +48,34 @@ body {
   color: var(--gray-200);
   margin: 2rem;
 }
+.rating input {
+  display: none;
+}
+.rating label {
+  display: block;
+  cursor: pointer;
+  min-width: fit-content;
+  position: relative;
+  margin-right: 8px;
+}
+.rating label:before {
+  content: "\f005";
+  font-family: fontAwesome;
+  display: block;
+  position: relative;
+}
+.rating label:after {
+  content: "\f005";
+  font-family: fontAwesome;
+  color: var(--yellow-400);
+  text-shadow: 2px 2px 5px var(--main-black);
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  transition: 0.5s;
+}
+.rating label:hover:after,
+.rating label:hover ~ label:after,
+.rating input:checked ~ label:after {
+  opacity: 1;
+}

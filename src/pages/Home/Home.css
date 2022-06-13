@@ -68,9 +68,7 @@
 }
 
 .landing__page__image{
-z-index: -100;
 position: absolute;
-
 top:10rem;
 width: 100%;
 height: auto;

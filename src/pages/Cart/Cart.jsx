@@ -8,6 +8,7 @@ import { useAuth } from "../../Context/auth-Context";
 import CartCard from "../../components/CartCard/CartCard";
 import getDiscount from "../../components/Discount/Discount";
 import CartBill from "../../components/CartBill/CartBill";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { authToken } = useAuth();
@@ -51,13 +52,11 @@ const Cart = () => {
 
   return (
     <div className="cart__main">
-      <div className="cart__heading h2 txt-gray-200 ">Your Cart</div>
-      <div className="cart__actions">
-        <button className="share button m-8 p-4 txt-2xl txt-bold b-1 bg-main-black txt--success border-solid border--success rounded-m">
-          Share Cart
-        </button>
-      </div>
+      <Link to="/Product" className="back button m-8 p-4 txt-2xl txt-bold bg-violet-400 rounded-m">
+        Back
+      </Link>
 
+      <div className="cart__heading h2 txt-gray-200 ">Your Cart</div>
       <div className="cart__container">
         <div className="cart__products">
           {prod.map((product) => {
@@ -78,7 +77,7 @@ const Cart = () => {
             />
           ) : (
             <div className="cart__empty">
-              Nothing Here :( add some items and Come Back
+              Nothing Here, Add some items and Come Back
             </div>
           )}
         </div>

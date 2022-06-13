@@ -8,6 +8,7 @@ import {useAuth} from "../../Context/auth-Context"
 import { useFilter } from "../../Context/Filter-Context";
 
 const Navbar = (props) => {
+
   const [hiddenMenuToggle, setHiddenMenuToggle] = useState("none");
   const { wishlistItems } = useWishlist();
   const { cartItems, setCartItems } = useCart();
@@ -17,14 +18,18 @@ const Navbar = (props) => {
   const [authAction, setAuthAction] = useState("Login");
   const { foundUser } = useAuth();
   const { filterVisible, setFilterVisible } = useFilter();
-  const params = useParams();
-
   const [searchData, setSearchData] = useState([]);
+  const params = useParams();
+  
+  useEffect(() => {
+    setHiddenMenuToggle("none")
+  }, [params])
+  
   useEffect(() => {
     if (searchFilterString === "")
       setSearchData([]);
     else
-      setSearchData(productData?.filter((product) => product?.title.toLowerCase().includes(searchFilterString.toLowerCase())))
+      setSearchData(productData?.filter((product)=>product?.title.toLowerCase().includes(searchFilterString.toLowerCase())))
   }, [searchFilterString]);
 
   const debounce=(func, timeout = 500)=> {
@@ -36,7 +41,6 @@ const Navbar = (props) => {
       }, timeout);
     };
   }
-  console.log(searchFilterString)
   
   return (
     <div>
@@ -113,7 +117,6 @@ const Navbar = (props) => {
                 id="cart__page"
                 onClick={() => {
                   setHiddenMenuToggle("flex");
-                  setFilterVisible(true);
                 }}
               >
                 <i className="badge__icon material-icons relative p-5 txt-gray-400">
@@ -161,7 +164,6 @@ const Navbar = (props) => {
               id="cart__page"
               onClick={() => {
                 setHiddenMenuToggle("none");
-                setFilterVisible(false);
               }}
             >
               <i className="badge__icon material-icons relative p-5 txt-gray-400">

@@ -1,0 +1,29 @@
+.order-placed__container{
+    height: 100vh;
+    width: 100vw;;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+}
+.order-placed--message{
+    font-size: 3rem;
+    color: var(--primary);
+}
+.list__wrapper{
+  width: 25rem;
+}
+.order-placed--items{
+    font-size: 2rem;
+    color: var(--gray-400);
+    margin-bottom:2rem;
+}
+.order-placed--price{
+    font-size: 2rem;
+    color: var(--green-400);
+}
+.order-placed--details{
+    border:1px solid white;
+    padding:2rem;
+    border-radius:24px;
+}

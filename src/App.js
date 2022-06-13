@@ -1,6 +1,7 @@
 import "./App.css";
-import logo from "./logo.png";
 import { Outlet } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+import logo from "./logo.png";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer"
 function App() {
@@ -10,6 +11,12 @@ function App() {
       <div className="App__main">
         <Outlet />
       </div>
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
+
+
     </div>
   );
 }

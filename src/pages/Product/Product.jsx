@@ -21,11 +21,11 @@ const Product = () => {
   const { foundUser } = useAuth();
   const prod = productData;
   const filterData = funcFilter(prod);
-  const [start, setStart] = useState(1);
-  const [end, setEnd] = useState(5);
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(6);
   
   useEffect(() => {
-    const numberOfPages = () => Math.ceil(filterData.length / 4);
+    const numberOfPages = () => Math.ceil(filterData.length / 6);
     for (let x = 1; x <= numberOfPages(); x++) {
       setPageNumbers((prev) => [...prev, x]);
     }
@@ -33,41 +33,76 @@ const Product = () => {
   },[])
   useEffect(() => {
     setPageNumbers([]);
-    const numberOfPages = () => Math.ceil(filterData.length / 4);
+    const numberOfPages = () => Math.ceil(filterData.length / 6);
     for (let x = 1; x <= numberOfPages(); x++) {
       setPageNumbers((prev)=>[...prev,x])
     }
-  }, [state,productData])
-
+    setStart(0);
+    setEnd(6);
+  }, [state, productData])
+  const { filterVisible,setFilterVisible } = useFilter();
   return (
     <main className="product_page_main">
       <div className="main__container">
-        <Filter prod={prod} />
+        <Filter prod={prod} style={{ display: filterVisible }} />
         <div className="products">
-          {filterData.map((product) => {
-            return <ProductCard key={product._id} product={product} />;
-          }).slice(start,end)}
+          {filterData
+            .map((product) => {
+              return <ProductCard key={product._id} product={product} />;
+            })
+            .slice(start, end)}
         </div>
       </div>
-      <ul className="pagination__container rounded-xl txt-main-white p-8 h5 flex justify-center ">
-        <span className="page__previous pointer txt--primary " onClick={() => { if (start >= 4) { setStart(start - 4); setEnd(end - 4) } }}>&lt; </span>
-       
-        {
-          [...pageNumbers].map((page,index) => {
-            return (
-              <li
-                className="page__number"
-                onClick={() => {
-                  setStart(index);
-                  setEnd(index+4);
-                }}
-              >
-                {page}
-              </li>
-            );
-          })
+      <div
+        className="open-filter"
+        onClick={() =>
+          filterVisible ===false
+            ? setFilterVisible(true)
+            : setFilterVisible(false)
         }
-        <span className="page__next pointer txt--primary" onClick={() => { if (end <= 9) { setStart(start + 4); setEnd(end + 4) } }}>&gt;</span>
+      >
+        <i className="open-filter--button badge__icon material-icons relative p-5 txt-gray-400">
+          {filterVisible === false ? "chevron_right" : "chevron_left"}
+        </i>
+      </div>
+      <ul className="pagination__container rounded-xl txt-main-white p-8 h5 flex justify-center ">
+        <span
+          className="page__previous pointer txt--primary "
+          onClick={() => {
+            if (start >= 6) {
+              setStart(start - 6);
+              setEnd(end - 6);
+            }
+          }}
+        >
+          &lt;{" "}
+        </span>
+
+        {[...pageNumbers].map((page, index) => {
+          return (
+            <li
+              className="page__number"
+              onClick={() => {
+                setStart((page-1)*6);
+                setEnd(page*6);
+              }}
+              key={index}
+            >
+              {page}
+            </li>
+          );
+        })}
+        <span
+          className="page__next pointer txt--primary"
+          onClick={() => {
+            if (end <= 6&&filterData.length>6) {
+              setStart(start + 6);
+              setEnd(end + 6);
+            }
+          }}
+        >
+          &gt;
+        </span>
       </ul>
     </main>
   );
