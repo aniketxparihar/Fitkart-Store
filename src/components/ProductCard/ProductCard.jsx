@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -25,6 +25,7 @@ import { useWishlist } from "../../Context/wishlist-context";
 import { useCart } from "../../Context/cart-context";
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
   const { authToken } = useAuth();
   const { currentProductHandler } = useCurrentProduct();
   const { wishlistItems, setWishlistItems } = useWishlist();
@@ -70,18 +71,21 @@ const ProductCard = ({ product }) => {
         </p>
         <i
           onClick={async () => {
-            if(wishlistItems.some((item) => item.id === product.id)){
-              const res = await removeFromWishlist(authToken, product);
-              setWishlistItems(res.data.wishlist);
-              setAddingWishlist("favorite_border");
-              notify("Removed from wishlist", "success");
-            }
-            else {
-            const res = await addToWishlist(authToken, product);
-             setWishlistItems(res.data.wishlist)
-              setAddingWishlist("favorite");
-              notify("Added to wishlist","success")
-            }
+             if (authToken) {
+               if (wishlistItems.some((item) => item.id === product.id)) {
+                 const res = await removeFromWishlist(authToken, product);
+                 setWishlistItems(res.data.wishlist);
+                 setAddingWishlist("favorite_border");
+                 notify("Removed from wishlist", "success");
+               } else {
+                 const res = await addToWishlist(authToken, product);
+                 setWishlistItems(res.data.wishlist);
+                 setAddingWishlist("favorite");
+                 notify("Added to wishlist", "success");
+               }
+             } else {
+               setTimeout(navigate("/Login"), 2000);
+             }
             
           }}
           className="liked material-icons pointer txt-main-white"
@@ -95,19 +99,25 @@ const ProductCard = ({ product }) => {
         <button
           className="button p-4 txt-2xl width-full txt-bold bg--primary  rounded-xl flex justify-center align-center"
           onClick={async () => {
-            if(cartItems.some((item)=>item._id===product._id)){
-            const res = await removeFromCart(authToken, product);
-            await setCartItems(res.data.cart);
-            setTimeout(() => setAdding("Add to cart"), 1000);
-            notify("Removed from cart", "success");
+            if (authToken) {
+              if (cartItems.some((item) => item._id === product._id)) {
+                const res = await removeFromCart(authToken, product);
+                await setCartItems(res.data.cart);
+                setTimeout(() => setAdding("Add to cart"), 1000);
+                notify("Removed from cart", "success");
+              } else {
+                setAdding("Adding to cart...");
+                const res = await addToCart(authToken, product);
+                await setCartItems(res.data.cart);
+                setTimeout(() => setAdding("Remove From cart"), 1000);
+                notify("Added to cart", "success");
+              }
             }
-            else {
-              setAdding("Adding to cart...");
-              const res = await addToCart(authToken, product);
-              await setCartItems(res.data.cart);
-              setTimeout(() => setAdding("Remove From cart"), 1000);
-              notify("Added to cart", "success");
+            else
+            {
+              setTimeout(navigate("/Login"),1000)
             }
+            
           }}
         >
           <i className="button__icon material-icons">shopping_cart</i>

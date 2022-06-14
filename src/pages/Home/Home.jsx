@@ -29,7 +29,10 @@ const Home = () => {
             Explore Collection
           </Link>
           <div className="home__landing__image">
-            <img src={landing__page__ecomm__image} />
+            <img
+              className="image__responsive"
+              src={landing__page__ecomm__image}
+            />
           </div>
 
           <main className="categories__container">

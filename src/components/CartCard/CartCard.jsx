@@ -91,11 +91,20 @@ const CartCard = (product) => {
             <button
               className="button width-full  bg-gray-300  p-4 txt-2xl txt-bold txt-main-black rounded-xl flex justify-center align-center"
               onClick={async () => {
-                const res1=await addToWishlist(authToken, product.product);
-                await setWishlistItems(res1.data.wishlist);
-                const res2=await removeFromCart(authToken, product.product)
-                await setCartItems(res2.data.cart);
-                notify("Item Added to wishlist", "success");
+                if (wishlistItems.some((item) => item._id === product.product._id))
+                {
+                  const res2 = await removeFromCart(authToken, product.product);
+                  await setCartItems(res2.data.cart);
+                  notify("Item Already in the wishlist", "error");
+                }
+                else {
+                  const res1 = await addToWishlist(authToken, product.product);
+                  await setWishlistItems(res1.data.wishlist);
+                  const res2 = await removeFromCart(authToken, product.product);
+                  await setCartItems(res2.data.cart);
+                  notify("Item Added to wishlist", "success"); 
+                }
+               
               }}
             >
               Move to Wishlist

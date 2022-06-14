@@ -3,13 +3,11 @@
     height:90vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin-top:15rem;
+    margin-top:25rem;
 }
 .profile{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width:100%;
 }
@@ -49,5 +47,33 @@
 }
 .order-placed--heading{
     font-size: 2.4rem;
-    text-decoration: underline;
+}
+.user-details{
+    font-size: 3rem;
+    color:var(--primary);
+    margin-bottom:2rem;
+    background-color: black;
+    padding:1rem;
+    border-radius: 8px;;
+}
+.user-details--heading{
+    font-size: 2rem;
+    color:var(--main-white);
+    margin-bottom:1rem;
+}
+.order-details--heading{
+    font-size: 3rem;
+    color:var(--main-white);
+    margin:4rem 0rem;
+}
+.ordered-items{
+   font-size: 3rem;
+    color:var(--primary);
+    margin-bottom:2rem;
+    background-color: black;
+    padding:2rem;
+    border-radius: 8px;
+}
+.ordered-items:hover{
+   border:1px solid var(--primary);
 }

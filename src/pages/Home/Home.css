@@ -42,7 +42,9 @@
 
 }
 
-
+.home__landing__image{
+  width:70rem;
+}
 
 
 @media screen and (max-width: 1000px) {

@@ -27,24 +27,19 @@ const UserProfile = () => {
             Logout
           </button>
         </div>
-        <div className="list__wrapper flex flex-col bg-main-black m-8">
-          <h1 className="order-placed--heading txt-main-white p-4">User</h1>
-          <div className="list__stacked">
-            <div className="list__item  txt-main-white p-4 ">
-              {foundUser.firstName} {foundUser.lastName}
-            </div>
+        <div>
+          <h1 className="user-details--heading">Name</h1>
+          <div className="user-details">
+            {foundUser.firstName} {foundUser.lastName}
           </div>
-        </div>
-
-        <div className="list__wrapper flex flex-col bg-main-black">
-          <h1 className="order-placed--heading txt-main-white p-4">
-            Previous Orders
-          </h1>
-          <div className="list__stacked ">
+          <h1 className="user-details--heading"> Email</h1>
+          <div className="user-details">{foundUser.email}</div>
+          <h1 className="order-details--heading">Previous Orders</h1>
+          <div className="">
             {orderedItems.map((item) => (
-              <li className="ordered-items list__item txt-2xl txt-main-white p-4 ">
-                Item: {item.title} Cost: {item.price}
-              </li>
+              <p className="ordered-items txt-2xl txt-main-white p-4 ">
+                {item.title} ₹{item.price}
+              </p>
             ))}
           </div>
         </div>
