@@ -91,6 +91,7 @@
         width: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
     }
 
@@ -106,7 +107,7 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: center;
         align-items: center;
         position: relative;
         overflow: auto;
@@ -163,5 +164,5 @@
 
 .coupon__button {
     min-width: max-content;
-    margin-left: 2rem;
+    background-color: var(--primary);
 }

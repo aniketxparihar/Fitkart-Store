@@ -78,20 +78,7 @@ const CartBill = ({
       <div className="p-6 border-bottom">
         <div className="txt-4xl p-4 txt-gray-200">Price Details</div>
       </div>
-      <div className="p-6 flex ">
-        <div className="total__amount txt-2xl p-4 txt-gray-200">
-          <input
-            type="radio"
-            name="address"
-            id="2c, Hauz Khas , Delhi , India"
-            className="p-4"
-            checked={true}
-          />
-          <label htmlFor="2c, Hauz Khas , Delhi , India">
-            2c, Hauz Khas , Delhi , India
-          </label>
-        </div>
-      </div>
+      
       <div className="p-6 flex ">
         <div className="total__price__text txt-2xl p-4 txt-gray-200">
           Price ({cartItems.length} items)
@@ -169,8 +156,8 @@ const CartBill = ({
                 default:
                   setCouponAmount(0);
                   setCouponApplied(false);
-                  setCoupon("")
-                  notify("Invalid Coupon","error")
+                  setCoupon("");
+                  notify("Invalid Coupon", "error");
               }
             } else {
               setCoupon("");
@@ -197,7 +184,7 @@ const CartBill = ({
             checked={coupon === "FiftyBonanza"}
             className="m-2"
           />
-          <label htmlFor="50%" className="m-2 txt-green-400">
+          <label htmlFor="50%" className=" txt-2xl m-2 txt-green-400">
             FiftyBonanza ( 50% off )
           </label>
         </div>
@@ -214,7 +201,7 @@ const CartBill = ({
             className="m-2"
             checked={coupon === "FortyBonanza"}
           />
-          <label htmlFor="40%" className="m-2 txt-green-400">
+          <label htmlFor="40%" className="m-2 txt-2xl txt-green-400">
             FortyBonanza ( 40% off )
           </label>
         </div>
@@ -231,7 +218,7 @@ const CartBill = ({
             className="m-2"
             checked={coupon === "TwentyBonanza"}
           />
-          <label htmlFor="20%" className="m-2 txt-green-400">
+          <label htmlFor="20%" className="m-2 txt-2xl txt-green-400">
             TwentyBonanza ( 20% off )
           </label>
         </div>
