@@ -9,7 +9,7 @@ import CartCard from "../../components/CartCard/CartCard";
 import getDiscount from "../../components/Discount/Discount";
 import CartBill from "../../components/CartBill/CartBill";
 import { Link } from "react-router-dom";
-
+import empty from "./empty.png"
 const Cart = () => {
   const { authToken } = useAuth();
   const { cartItems, setCartItems } = useCart();
@@ -56,7 +56,7 @@ const Cart = () => {
         Back
       </Link>
 
-      <div className="cart__heading h2 txt-gray-200 ">Your Cart</div>
+      <div className="cart__heading  ">Your Cart</div>
       <div className="cart__container">
         <div className="cart__products">
           {prod.map((product) => {
@@ -77,8 +77,8 @@ const Cart = () => {
             />
           ) : (
             <div className="cart__empty">
-              Nothing Here, Add some items and Come Back
-            </div>
+              <img src={empty} alt="" />
+              </div>
           )}
         </div>
       </div>

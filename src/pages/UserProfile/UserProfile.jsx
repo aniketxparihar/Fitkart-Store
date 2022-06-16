@@ -3,6 +3,7 @@ import "./UserProfile.css"
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../Context/auth-Context';
 import { useCart } from '../../Context/cart-context';
+import profileImage from "./profileImage.png"
 const UserProfile = () => {
   const { foundUser, userHandler } = useAuth();
   const {
@@ -18,7 +19,6 @@ const UserProfile = () => {
         userHandler(null);
     }
   useEffect(() => { }, [foundUser])
-  console.log(orderedItems)
   return (
     <div className="profile__container">
       <div className="profile">
@@ -27,21 +27,22 @@ const UserProfile = () => {
             Logout
           </button>
         </div>
-        <div>
-          <h1 className="user-details--heading">Name</h1>
-          <div className="user-details">
-            {foundUser.firstName} {foundUser.lastName}
-          </div>
-          <h1 className="user-details--heading"> Email</h1>
-          <div className="user-details">{foundUser.email}</div>
-          <h1 className="order-details--heading">Previous Orders</h1>
+        <div className="user-details">
+          <h1 className="user-details--heading">
+             Hi, {foundUser.firstName} {foundUser.lastName}!
+          </h1>
+          <h1 className="order-details--heading">Previous orders - </h1>
+          {
+            orderedItems.length===0?<div>No orders yet...</div>:null
+          }
           <div className="">
             {orderedItems.map((item) => (
               <p className="ordered-items txt-2xl txt-main-white p-4 ">
-                {item.title} ₹{item.price}
+                {item.title} ₹{item.price} qty {item.qty}
               </p>
             ))}
           </div>
+          <img src={profileImage} alt="" />
         </div>
       </div>
     </div>

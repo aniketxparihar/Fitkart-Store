@@ -18,10 +18,12 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import AuthRoute from "./components/AuthRoute/AuthRoute";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import OrderPlaced from "./pages/OrderPlaced/OrderPlaced";
+import NotFound from "./pages/NotFound/NotFound";
 
 const Routes = () => {
   return (
     <RoutesContainer>
+      <Route path="*" element={<NotFound />}></Route>
       <Route path="/" element={<App />}>
         <Route index element={<Home />} />
         <Route path="/Product" element={<Product />} />

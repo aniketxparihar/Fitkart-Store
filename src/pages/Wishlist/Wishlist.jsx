@@ -9,7 +9,7 @@ import { useAuth } from "../../Context/auth-Context";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import WishlistCard from "../../components/WishlistCard/WishlistCard";
 import { Link } from "react-router-dom";
-
+import empty from "./empty.png";
 const Wishlist = () => {
   const { wishlistItems} = useWishlist();
 
@@ -30,7 +30,7 @@ const Wishlist = () => {
         </div>
       ) : (
         <div className="wishlist__empty">
-          Nothing Here, Add some items and Come Back
+          <img src={empty} alt="" />
         </div>
       )}
     </div>
